@@ -18,7 +18,7 @@ public class JobEntity {
     private String level;
 
     @ManyToOne() //Posso ter vários trabalhos para uma empresa
-    @JoinColumn()
+    @JoinColumn(name = "company_id", insertable = false, updatable = false) //Coluna no banco de dados
     private CompanyEntity companyEntity;
 
     @Column(name = "company_id")
