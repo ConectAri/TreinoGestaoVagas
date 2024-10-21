@@ -1,28 +1,26 @@
 package com.arianemoura.primeiro_projeto_springboot.company.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 
-@Entity(name = "company")
 @Data
+@Entity(name = "company")
 public class CompanyEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
     private UUID id;
+
 
     @NotBlank
     @Pattern(regexp = "\\S+", message = "O campo [username] não deve conter espaço")
@@ -38,8 +36,5 @@ public class CompanyEntity {
     private String description;
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-
-
 
 }

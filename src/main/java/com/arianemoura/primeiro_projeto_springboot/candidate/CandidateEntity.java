@@ -18,6 +18,7 @@ public class CandidateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
     private UUID id;
 
     private String name;

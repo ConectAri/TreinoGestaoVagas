@@ -1,6 +1,7 @@
 package com.arianemoura.primeiro_projeto_springboot.company.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
@@ -12,20 +13,22 @@ public class JobEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
     private UUID id;
+
     private String description;
+
     private String benefits;
+
+    @NotBlank(message = "Esse campo é obrigatório")
     private String level;
 
-    @ManyToOne() //Posso ter vários trabalhos para uma empresa
-    @JoinColumn(name = "company_id", insertable = false, updatable = false) //Coluna no banco de dados
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false) // Chave estrangeira na tabela job
     private CompanyEntity companyEntity;
 
-    @Column(name = "company_id")
-    private UUID companyId;
 
     @CreationTimestamp
     private LocalDateTime createAt;
-
 
 }
