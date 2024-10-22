@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CompanyRepository extends JpaRepository<CompanyEntity, UUID> {
+public interface CompanyRepository extends JpaRepository<CompanyEntity, String> {
 
     Optional<CompanyEntity> findByUsernameOrEmail(String username, String email); //Validando a busca por e-mail ou nome
 

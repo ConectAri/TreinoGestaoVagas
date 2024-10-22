@@ -16,10 +16,14 @@ import java.util.UUID;
 public class CompanyEntity {
 
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
+//    private String id;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
-    private UUID id;
+    private String id; // UUID armazenado como string
 
 
     @NotBlank
@@ -37,4 +41,13 @@ public class CompanyEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-}
+    @PrePersist
+    public void prePersist() {
+        // Gera o UUID como string antes de persistir no banco
+        if (id == null) {
+            id = java.util.UUID.randomUUID().toString();
+        }
+
+    }
+
+    }

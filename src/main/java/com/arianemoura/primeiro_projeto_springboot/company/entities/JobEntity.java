@@ -11,10 +11,14 @@ import java.util.UUID;
 @Entity(name = "job")
 public class JobEntity {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
+//    private String id;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "CHAR(36)", unique = true, nullable = false)
-    private UUID id;
+    private String id; // UUID armazenado como string
 
     private String description;
 
@@ -30,5 +34,19 @@ public class JobEntity {
 
     @CreationTimestamp
     private LocalDateTime createAt;
+
+
+    @Transient
+    private String companyId; // Usado apenas para capturar o ID da empresa na requisição
+
+
+    @PrePersist
+    public void prePersist() {
+        // Gera o UUID como string antes de persistir no banco
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
+
+    }
 
 }
